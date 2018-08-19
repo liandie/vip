@@ -1,0 +1,858 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+  {% load staticfiles %}
+  <title>视频播放</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="application/x-javascript">
+  addEventListener("load", function() {
+    setTimeout(hideURLbar, 0);
+  }, false);
+   function hideURLbar()
+   { window.scrollTo(0,1);
+   } </script>
+  <link href="{% static 'css/bootstrap.min.css' %}" rel='stylesheet' type='text/css' media="all" />
+  <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
+  <link href="{% static 'css/navstyle.css' %}" rel='stylesheet' type='text/css' media="all" />
+  {% if "computer" == device %}
+    <link href="{% static 'css/computer-style.css' %}" rel='stylesheet' type='text/css' media="all" />
+  {% endif %}
+  {% if "mobile" == device %}
+    <link href="{% static 'css/mobile-style.css' %}" rel='stylesheet' type='text/css' media="all" />
+  {% endif %}
+  <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+</head>
+  <body id='f-nav2'>
+    {% if "computer" == device %}
+     <div class="box" >
+      <ul class="f-nav"  >
+	        <li class="fontNav" onclick="tiao('main');">首页</li>
+	        <li onclick="tiao('movie');">电影</li>
+	        <li onclick="tiao('anime');">动漫</li>
+	        <li onclick="tiao('tv');">电视剧</li>
+	        <li onclick="tiao('documentary');">纪录片</li>
+          <li onclick="tiao('mv');">音乐M</li>
+	       <div class='sideline'></div>
+  	</ul>
+  </div>
+  <div class="top-search">
+    <form class="navbar-form navbar-right" action="search" method="post">
+      {% csrf_token %}
+      <input type="text" class="form-control" id="form-control" name="form-control" placeholder="Search...">
+      <input type="submit" value=" ">
+    </form>
+  </div>
+      <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+      <script type="text/javascript" src="{% static 'js/jquery-nav.js' %}"></script>
+      <script type="text/javascript">
+      	$('#f-nav2').tooltip({
+      		default: 0,
+      		type: 'fontUp',
+      		width: '150',
+      	});
+        function tiao(url){
+          window.location.href=url;
+        }
+      </script>
+      {% endif %}
+    {% if "mobile" == device %}
+        <div class="col-sm-3 col-md-2 sidebar"  style="position: fixed;top:0;z-index:9999;">
+			<div class="top-navigation">
+				<div class="t-menu">MENU</div>
+				<div class="t-img">
+					<img src="{% static 'images/lines.png' %}" alt="" />
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+				<div class="drop-navigation drop-navigation">
+				  <ul class="nav nav-sidebar">
+					<li class="active"><a href="main" class="home-icon">首页</a></li>
+					<li><a href="main" class="user-icon">电影</a></li>
+					<li><a href="main" class="sub-icon">动漫</a></li>
+					<li><a href="main" class="menu1">电视剧</a></li>
+					<li><a href="main" class="menu">纪录片</a></li>
+					<li><a href="main" class="song-icon">音乐Mv</a></li>
+				  </ul>
+						<script>
+							$( ".top-navigation" ).click(function() {
+							$( ".drop-navigation" ).slideToggle( 300, function() {
+							// Animation complete.
+							});
+							});
+						</script>
+				</div>
+        </div>
+        {% endif %}
+      <!-- <div style="width:auto;height:auto;"> -->
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          {% if "mobile" == device %}
+          <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container-fluid">
+            <div id="navbar" class="navbar-collapse collapse">
+    			<div class="top-search">
+    				<form class="navbar-form navbar-right" action="search" method="post">
+              {% csrf_token %}
+    					<input type="text" class="form-control" id="form-control" name="form-control" placeholder="Search...">
+    					<input type="submit" value=" ">
+    				</form>
+    			</div>
+            </div>
+          </div>
+         </nav>
+         {% endif %}
+  			<div class="main-grids">
+  				<div class="top-grids">
+  					<div class="recommended-info">
+  						<h3>最近上映</h3>
+  					</div>
+  					<div class="col-md-4 resent-grid recommended-grid slider-top-grids">
+  						<div class="resent-grid-img recommended-grid-img">
+  							<a href="single.html"><img src="//puui.qpic.cn/vcover_vt_pic/0/vnib3fekaa20sqk1517542186/220" alt="" /></a>
+  						</div>
+  						<div class="resent-grid-info recommended-grid-info">
+  							<h3><a href="single.html" class="title title-info">Pellentesque vitae pulvinar tortor nullam interdum metus a imperdiet</a></h3>
+  							<ul>
+  								<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+  								<li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+  							</ul>
+  						</div>
+  					</div>
+  					<div class="col-md-4 resent-grid recommended-grid slider-top-grids">
+  						<div class="resent-grid-img recommended-grid-img">
+  							<a href="single.html"><img src="//pic6.qiyipic.com/image/20180426/6d/47/v_115746324_m_601_m1_180_236.jpg" alt="" /></a>
+  						</div>
+  						<div class="resent-grid-info recommended-grid-info">
+  							<h3><a href="single.html" class="title title-info">Interdum pellentesque vitae pulvinar tortor nullam metus a imperdiet</a></h3>
+  							<ul>
+  								<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+  								<li class="right-list"><p class="views views-info">4,200 views</p></li>
+  							</ul>
+  						</div>
+  					</div>
+  					<div class="col-md-4 resent-grid recommended-grid slider-top-grids">
+  						<div class="resent-grid-img recommended-grid-img">
+  							<a href="single.html"><img src="https://2img.hitv.com/preview/internettv/sp_images/ott/2018/dianying/322319/20180207183141007-new.jpg" alt="" /></a>
+  						</div>
+  						<div class="resent-grid-info recommended-grid-info">
+  							<h3><a href="single.html" class="title title-info">Nullam interdum metus a imperdiet pellentesque vitae pulvinar tortor</a></h3>
+  							<ul>
+  								<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+  								<li class="right-list"><p class="views views-info">71,174 views</p></li>
+  							</ul>
+  						</div>
+  					</div>
+            <div class="col-md-4 resent-grid recommended-grid slider-top-grids">
+              <div class="resent-grid-img recommended-grid-img">
+                <a href="single.html"><img src="http://r1.ykimg.com/051600005A7D192DAD881A64500AB1A7" alt="" /></a>
+              </div>
+              <div class="resent-grid-info recommended-grid-info">
+                <h3><a href="single.html" class="title title-info">Nullam interdum metus a imperdiet pellentesque vitae pulvinar tortor</a></h3>
+                <ul>
+                  <li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+                  <li class="right-list"><p class="views views-info">71,174 views</p></li>
+                </ul>
+              </div>
+            </div>
+  					<div class="clearfix"> </div>
+  				</div>
+  				<div class="recommended">
+  					<div class="recommended-grids">
+  						<div class="recommended-info">
+  							<h3>电影</h3>
+  						</div>
+  						<script src="{% static 'js/responsiveslides.min.js' %}"></script>
+  						 <script>
+  							// You can also use "$(window).load(function() {"
+  							$(function () {
+  							  // Slideshow 4
+  							  $("#slider3").responsiveSlides({
+  								auto: true,
+  								pager: false,
+  								nav: true,
+  								speed: 500,
+  								namespace: "callbacks",
+  								before: function () {
+  								  $('.events').append("<li>before event fired.</li>");
+  								},
+  								after: function () {
+  								  $('.events').append("<li>after event fired.</li>");
+  								}
+  							  });
+
+  							});
+  						  </script>
+  						<div  id="top" class="callbacks_container">
+  							<ul class="rslides" id="slider3">
+  								<li>
+  									<div class="animated-grids">
+  										<div class="col-md-3 resent-grid recommended-grid slider-first">
+  											<div class="resent-grid-img recommended-grid-img">
+  												<a href="single.html"><img style="height: 350px !important;" src="https://3img.hitv.com/preview/internettv/sp_images/ott/2017/dianying/321172/20171226103010661-new.jpg" alt="" /></a>
+  											</div>
+  											<div class="resent-grid-info recommended-grid-info">
+  												<h5><a href="single.html" class="title">Varius sit sed viverra nullam viverra nullam interdum metus</a></h5>
+  												<div class="slid-bottom-grids">
+  													<div class="slid-bottom-grid">
+  														<p class="author author-info"><a href="#" class="author">John Maniya</a></p>
+  													</div>
+  													<div class="slid-bottom-grid slid-bottom-right">
+  														<p class="views views-info">2,114,200 views</p>
+  													</div>
+  													<div class="clearfix"> </div>
+  												</div>
+  											</div>
+  										</div>
+  										<div class="col-md-3 resent-grid recommended-grid slider-first">
+  											<div class="resent-grid-img recommended-grid-img">
+  												<a href="single.html"><img style="height: 350px !important;" src="https://i1.hunantv.com/p1/20151124/1538024064C.jpg" alt="" /></a>
+
+  											</div>
+  											<div class="resent-grid-info recommended-grid-info">
+  												<h5><a href="single.html" class="title">Nullam interdum metus varius viverra nullam sit amet viverra</a></h5>
+  												<div class="slid-bottom-grids">
+  													<div class="slid-bottom-grid">
+  														<p class="author author-info"><a href="#" class="author">John Maniya</a></p>
+  													</div>
+  													<div class="slid-bottom-grid slid-bottom-right">
+  														<p class="views views-info">14,200 views</p>
+  													</div>
+  													<div class="clearfix"> </div>
+  												</div>
+  											</div>
+  										</div>
+                      <div class="col-md-3 resent-grid recommended-grid slider-first">
+                        <div class="resent-grid-img recommended-grid-img">
+                          <a href="single.html"><img style="height: 350px !important;" src="https://i1.hunantv.com/p1/20151124/1538024064C.jpg" alt="" /></a>
+
+                        </div>
+                        <div class="resent-grid-info recommended-grid-info">
+                          <h5><a href="single.html" class="title">Nullam interdum metus varius viverra nullam sit amet viverra</a></h5>
+                          <div class="slid-bottom-grids">
+                            <div class="slid-bottom-grid">
+                              <p class="author author-info"><a href="#" class="author">John Maniya</a></p>
+                            </div>
+                            <div class="slid-bottom-grid slid-bottom-right">
+                              <p class="views views-info">14,200 views</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                          </div>
+                        </div>
+                      </div>
+  										<div class="col-md-3 resent-grid recommended-grid slider-first">
+  											<div class="resent-grid-img recommended-grid-img">
+  												<a href="single.html"><img style="height: 350px !important;" src="https://0img.hitv.com/preview/internettv/sp_images/ott/2016/dianying/48055/20160701111438527-new.jpg" alt="" /></a>
+
+  											</div>
+  											<div class="resent-grid-info recommended-grid-info">
+  												<h5><a href="single.html" class="title">Varius sit sed viverra nullam viverra nullam interdum metus</a></h5>
+  												<div class="slid-bottom-grids">
+  													<div class="slid-bottom-grid">
+  														<p class="author author-info"><a href="#" class="author">John Maniya</a></p>
+  													</div>
+  													<div class="slid-bottom-grid slid-bottom-right">
+  														<p class="views views-info">2,114,200 views</p>
+  													</div>
+  													<div class="clearfix"> </div>
+  												</div>
+  											</div>
+  										</div>
+                      <div class="col-md-3 resent-grid recommended-grid slider-first">
+                        <div class="resent-grid-img recommended-grid-img">
+                          <a href="single.html"><img style="height: 350px !important;" src="http://i3.letvimg.com/lc02_isvrs/201602/03/13/24/47822e7b-8bde-42f5-b88b-57c7a4dc025b.jpg" alt="" /></a>
+
+                        </div>
+                        <div class="resent-grid-info recommended-grid-info">
+                          <h5><a href="single.html" class="title">varius sit sed viverra viverra nullam Nullam interdum metus</a></h5>
+                          <div class="slid-bottom-grids">
+                            <div class="slid-bottom-grid">
+                              <p class="author author-info"><a href="#" class="author">John Maniya</a></p>
+                            </div>
+                            <div class="slid-bottom-grid slid-bottom-right">
+                              <p class="views views-info">2,114,200 views</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                          </div>
+                        </div>
+                      </div>
+  										<div class="col-md-3 resent-grid recommended-grid slider-first">
+  											<div class="resent-grid-img recommended-grid-img">
+  												<a href="single.html"><img style="height: 350px !important;" src="//puui.qpic.cn/vcover_vt_pic/0/3fqizl1bxxj6azv1524042783/220" alt="" /></a>
+
+  											</div>
+  											<div class="resent-grid-info recommended-grid-info">
+  												<h5><a href="single.html" class="title">Nullam interdum metus viverra nullam varius sit sed viverra</a></h5>
+  												<div class="slid-bottom-grids">
+  													<div class="slid-bottom-grid">
+  														<p class="author author-info"><a href="#" class="author">7.9</a></p>
+  													</div>
+  													<div class="slid-bottom-grid slid-bottom-right">
+  														<p class="views views-info">0 views</p>
+  													</div>
+  													<div class="clearfix"> </div>
+  												</div>
+  											</div>
+  										</div>
+  										<div class="clearfix"> </div>
+  									</div>
+  								</li>
+  								<li>
+  									<div class="animated-grids">
+  										<div class="col-md-3 resent-grid recommended-grid slider-first">
+  											<div class="resent-grid-img recommended-grid-img">
+  												<a href="single.html"><img style="height: 350px !important;" src="//puui.qpic.cn/vcover_vt_pic/0/detoxkgs5zsqjhr1524018247/220" alt="" /></a>
+  											</div>
+  											<div class="resent-grid-info recommended-grid-info">
+  												<h5><a href="single.html" class="title">Varius sit sed viverra viverra nullam nullam interdum metus</a></h5>
+  												<div class="slid-bottom-grids">
+  													<div class="slid-bottom-grid">
+  														<p class="author author-info"><a href="#" class="author">John Maniya</a></p>
+  													</div>
+  													<div class="slid-bottom-grid slid-bottom-right">
+  														<p class="views views-info">2,114,200 views</p>
+  													</div>
+  													<div class="clearfix"> </div>
+  												</div>
+  											</div>
+  										</div>
+                      <div class="col-md-3 resent-grid recommended-grid slider-first">
+                        <div class="resent-grid-img recommended-grid-img">
+                          <a href="single.html"><img style="height: 350px !important;" src="https://i1.hunantv.com/p1/20151124/1538024064C.jpg" alt="" /></a>
+                        </div>
+                        <div class="resent-grid-info recommended-grid-info">
+                          <h5><a href="single.html" class="title">Nullam interdum metus varius viverra nullam sit amet viverra</a></h5>
+                          <div class="slid-bottom-grids">
+                            <div class="slid-bottom-grid">
+                              <p class="author author-info"><a href="#" class="author">John Maniya</a></p>
+                            </div>
+                            <div class="slid-bottom-grid slid-bottom-right">
+                              <p class="views views-info">14,200 views</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                          </div>
+                        </div>
+                      </div>
+  										<div class="col-md-3 resent-grid recommended-grid slider-first">
+  											<div class="resent-grid-img recommended-grid-img">
+  												<a href="single.html"><img style="height: 350px !important;" src="http://r1.ykimg.com/051600005A810A30ADBA1F58ED07A284" alt="" /></a>
+  											</div>
+  											<div class="resent-grid-info recommended-grid-info">
+  												<h5><a href="single.html" class="title">Nullam interdum metus viverra nullam varius sit sed viverra</a></h5>
+  												<div class="slid-bottom-grids">
+  													<div class="slid-bottom-grid">
+  														<p class="author author-info"><a href="#" class="author">John Maniya</a></p>
+  													</div>
+  													<div class="slid-bottom-grid slid-bottom-right">
+  														<p class="views views-info">2,114,200 views</p>
+  													</div>
+  													<div class="clearfix"> </div>
+  												</div>
+  											</div>
+  										</div>
+  										<div class="col-md-3 resent-grid recommended-grid slider-first">
+  											<div class="resent-grid-img recommended-grid-img">
+  												<a href="single.html"><img style="height: 350px !important;" src="http://r1.ykimg.com/051600005A52D962ADBAC3D0BB06AAAA" alt="" /></a>
+  											</div>
+  											<div class="resent-grid-info recommended-grid-info">
+  												<h5><a href="single.html" class="title">varius sit sed viverra viverra nullam Nullam interdum metus</a></h5>
+  												<div class="slid-bottom-grids">
+  													<div class="slid-bottom-grid">
+  														<p class="author author-info"><a href="#" class="author">John Maniya</a></p>
+  													</div>
+  													<div class="slid-bottom-grid slid-bottom-right">
+  														<p class="views views-info">2,114,200 views</p>
+  													</div>
+  													<div class="clearfix"> </div>
+  												</div>
+  											</div>
+  										</div>
+                      <div class="col-md-3 resent-grid recommended-grid slider-first">
+                        <div class="resent-grid-img recommended-grid-img">
+                          <a href="single.html"><img style="height: 350px !important;" src="http://i3.letvimg.com/lc02_isvrs/201602/03/13/24/47822e7b-8bde-42f5-b88b-57c7a4dc025b.jpg" alt="" /></a>
+                        </div>
+                        <div class="resent-grid-info recommended-grid-info">
+                          <h5><a href="single.html" class="title">varius sit sed viverra viverra nullam Nullam interdum metus</a></h5>
+                          <div class="slid-bottom-grids">
+                            <div class="slid-bottom-grid">
+                              <p class="author author-info"><a href="#" class="author">John Maniya</a></p>
+                            </div>
+                            <div class="slid-bottom-grid slid-bottom-right">
+                              <p class="views views-info">2,114,200 views</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                          </div>
+                        </div>
+                      </div>
+  										<div class="col-md-3 resent-grid recommended-grid slider-first">
+  											<div class="resent-grid-img recommended-grid-img">
+  												<a href="single.html"><img style="height: 350px !important;" src="http://r1.ykimg.com/051600005A52D962ADBAC3D0BB06AAAA" alt="" /></a>
+  											</div>
+  											<div class="resent-grid-info recommended-grid-info">
+  												<h5><a href="single.html" class="title">Nullam interdum metus viverra nullam varius sit sed viverra</a></h5>
+  												<div class="slid-bottom-grids">
+  													<div class="slid-bottom-grid">
+  														<p class="author author-info"><a href="#" class="author">John Maniya</a></p>
+  													</div>
+  													<div class="slid-bottom-grid slid-bottom-right">
+  														<p class="views views-info">1,14,200 views</p>
+  													</div>
+  													<div class="clearfix"> </div>
+  												</div>
+  											</div>
+  										</div>
+  										<div class="clearfix"> </div>
+  									</div>
+  								</li>
+  								<li>
+  									<div class="animated-grids">
+  										<div class="col-md-3 resent-grid recommended-grid slider-first">
+  											<div class="resent-grid-img recommended-grid-img">
+  												<a href="single.html"><img style="height: 350px !important;" src="http://r1.ykimg.com/051600005A52D962ADBAC3D0BB06AAAA" alt="" /></a>
+  											</div>
+  											<div class="resent-grid-info recommended-grid-info">
+  												<h5><a href="single.html" class="title">Varius sit sed viverra viverra nullam nullam interdum metus</a></h5>
+  												<div class="slid-bottom-grids">
+  													<div class="slid-bottom-grid">
+  														<p class="author author-info"><a href="#" class="author">John Maniya</a></p>
+  													</div>
+  													<div class="slid-bottom-grid slid-bottom-right">
+  														<p class="views views-info">2,114,200 views</p>
+  													</div>
+  													<div class="clearfix"> </div>
+  												</div>
+  											</div>
+  										</div>
+                      <div class="col-md-3 resent-grid recommended-grid slider-first">
+                        <div class="resent-grid-img recommended-grid-img">
+                          <a href="single.html"><img style="height: 350px !important;" src="https://i1.hunantv.com/p1/20151124/1538024064C.jpg" alt="" /></a>
+                        </div>
+                        <div class="resent-grid-info recommended-grid-info">
+                          <h5><a href="single.html" class="title">Nullam interdum metus varius viverra nullam sit amet viverra</a></h5>
+                          <div class="slid-bottom-grids">
+                            <div class="slid-bottom-grid">
+                              <p class="author author-info"><a href="#" class="author">John Maniya</a></p>
+                            </div>
+                            <div class="slid-bottom-grid slid-bottom-right">
+                              <p class="views views-info">14,200 views</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                          </div>
+                        </div>
+                      </div>
+  										<div class="col-md-3 resent-grid recommended-grid slider-first">
+  											<div class="resent-grid-img recommended-grid-img">
+  												<a href="single.html"><img style="height: 350px !important;" src="http://i3.letvimg.com/lc02_isvrs/201602/03/13/24/47822e7b-8bde-42f5-b88b-57c7a4dc025b.jpg" alt="" /></a>
+  											</div>
+  											<div class="resent-grid-info recommended-grid-info">
+  												<h5><a href="single.html" class="title">Nullam interdum metus viverra nullam varius sit sed viverra</a></h5>
+  												<div class="slid-bottom-grids">
+  													<div class="slid-bottom-grid">
+  														<p class="author author-info"><a href="#" class="author">John Maniya</a></p>
+  													</div>
+  													<div class="slid-bottom-grid slid-bottom-right">
+  														<p class="views views-info">2,114,200 views</p>
+  													</div>
+  													<div class="clearfix"> </div>
+  												</div>
+  											</div>
+  										</div>
+  										<div class="col-md-3 resent-grid recommended-grid slider-first">
+  											<div class="resent-grid-img recommended-grid-img">
+  												<a href="single.html"><img style="height: 350px !important;" src="http://i3.letvimg.com/lc02_isvrs/201602/03/13/24/47822e7b-8bde-42f5-b88b-57c7a4dc025b.jpg" alt="" /></a>
+  											</div>
+  											<div class="resent-grid-info recommended-grid-info">
+  												<h5><a href="single.html" class="title">varius sit sed viverra viverra nullam Nullam interdum metus</a></h5>
+  												<div class="slid-bottom-grids">
+  													<div class="slid-bottom-grid">
+  														<p class="author author-info"><a href="#" class="author">John Maniya</a></p>
+  													</div>
+  													<div class="slid-bottom-grid slid-bottom-right">
+  														<p class="views views-info">2,114,200 views</p>
+  													</div>
+  													<div class="clearfix"> </div>
+  												</div>
+  											</div>
+  										</div>
+                      <div class="col-md-3 resent-grid recommended-grid slider-first">
+                        <div class="resent-grid-img recommended-grid-img">
+                          <a href="single.html"><img style="height: 350px !important;" src="http://i3.letvimg.com/lc02_isvrs/201602/03/13/24/47822e7b-8bde-42f5-b88b-57c7a4dc025b.jpg" alt="" /></a>
+                        </div>
+                        <div class="resent-grid-info recommended-grid-info">
+                          <h5><a href="single.html" class="title">varius sit sed viverra viverra nullam Nullam interdum metus</a></h5>
+                          <div class="slid-bottom-grids">
+                            <div class="slid-bottom-grid">
+                              <p class="author author-info"><a href="#" class="author">John Maniya</a></p>
+                            </div>
+                            <div class="slid-bottom-grid slid-bottom-right">
+                              <p class="views views-info">2,114,200 views</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                          </div>
+                        </div>
+                      </div>
+  										<div class="col-md-3 resent-grid recommended-grid slider-first">
+  											<div class="resent-grid-img recommended-grid-img">
+  												<a href="single.html"><img style="height: 350px !important;" src="https://1img.hitv.com/preview/internettv/sp_images/ott/2015/dianying/131256/20151216155513460-new.jpg" alt="" /></a>
+  											</div>
+  											<div class="resent-grid-info recommended-grid-info">
+  												<h5><a href="single.html" class="title">Nullam interdum metus viverra nullam varius sit sed viverra</a></h5>
+  												<div class="slid-bottom-grids">
+  													<div class="slid-bottom-grid">
+  														<p class="author author-info"><a href="#" class="author">John Maniya</a></p>
+  													</div>
+  													<div class="slid-bottom-grid slid-bottom-right">
+  														<p class="views views-info">1,14,200 views</p>
+  													</div>
+  													<div class="clearfix"> </div>
+  												</div>
+  											</div>
+  										</div>
+  										<div class="clearfix"> </div>
+  									</div>
+  								</li>
+  							</ul>
+  						</div>
+  					</div>
+  				</div>
+  				<div class="recommended">
+  					<div class="recommended-grids">
+  						<div class="recommended-info">
+  							<h3>动漫</h3>
+  						</div>
+  						<div class="col-md-3 resent-grid recommended-grid">
+  							<div class="resent-grid-img recommended-grid-img">
+  								<a href="single.html"><img style="height: 350px !important;" src="//puui.qpic.cn/vcover_vt_pic/0/vnib3fekaa20sqk1517542186/220" alt="" /></a>
+  							</div>
+  							<div class="resent-grid-info recommended-grid-info video-info-grid">
+  								<h5><a href="single.html" class="title">Varius sit sed viverra viverra nullam nullam interdum metus</a></h5>
+  								<ul>
+  									<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+  									<li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+  								</ul>
+  							</div>
+  						</div>
+  						<div class="col-md-3 resent-grid recommended-grid">
+  							<div class="resent-grid-img recommended-grid-img">
+  								<a href="single.html"><img style="height: 350px !important;" src="http://pic5.qiyipic.com/image/20180429/9a/8a/v_115692341_m_601_m1_180_236.jpg" alt="" /></a>
+  							</div>
+  							<div class="resent-grid-info recommended-grid-info video-info-grid">
+  								<h5><a href="single.html" class="title">Nullam interdum metus viverra nullam varius sit sed viverra</a></h5>
+  								<ul>
+  									<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+  									<li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+  								</ul>
+  							</div>
+  						</div>
+              <div class="col-md-3 resent-grid recommended-grid">
+                <div class="resent-grid-img recommended-grid-img">
+                  <a href="single.html"><img style="height: 350px !important;" src="http://pic5.qiyipic.com/image/20180429/9a/8a/v_115692341_m_601_m1_180_236.jpg" alt="" /></a>
+                </div>
+                <div class="resent-grid-info recommended-grid-info video-info-grid">
+                  <h5><a href="single.html" class="title">Nullam interdum metus viverra nullam varius sit sed viverra</a></h5>
+                  <ul>
+                    <li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+                    <li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+                  </ul>
+                </div>
+              </div>
+  						<div class="col-md-3 resent-grid recommended-grid">
+  							<div class="resent-grid-img recommended-grid-img">
+  								<a href="single.html"><img style="height: 350px !important;" src="https://2img.hitv.com/preview/internettv/sp_images/ott/2018/dianying/322319/20180207183141007-new.jpg" alt="" /></a>
+  							</div>
+  							<div class="resent-grid-info recommended-grid-info video-info-grid">
+  								<h5><a href="single.html" class="title">Varius sit sed viverra nullam viverra nullam interdum metus</a></h5>
+  								<ul>
+  									<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+  									<li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+  								</ul>
+  							</div>
+  						</div>
+  						<div class="col-md-3 resent-grid recommended-grid">
+  							<div class="resent-grid-img recommended-grid-img">
+  								<a href="single.html"><img style="height: 350px !important;" src="http://r1.ykimg.com/051600005A7D192DAD881A64500AB1A7" alt="" /></a>
+  							</div>
+  							<div class="resent-grid-info recommended-grid-info video-info-grid">
+  								<h5><a href="single.html" class="title">Nullam interdum viverra nullam metus varius sit sed viverra</a></h5>
+  								<ul>
+  									<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+  									<li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+  								</ul>
+  							</div>
+  						</div>
+              <div class="col-md-3 resent-grid recommended-grid">
+                <div class="resent-grid-img recommended-grid-img">
+                  <a href="single.html"><img style="height: 350px !important;" src="http://i1.letvimg.com/lc03_isvrs/201712/20/15/54/b63eaeac-19b0-4281-a9d3-e9caa3a94653.jpg" alt="" /></a>
+                </div>
+                <div class="resent-grid-info recommended-grid-info video-info-grid">
+                  <h5><a href="single.html" class="title">Nullam interdum viverra nullam metus varius sit sed viverra</a></h5>
+                  <ul>
+                    <li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+                    <li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+                  </ul>
+                </div>
+              </div>
+  						<div class="clearfix"> </div>
+  					</div>
+  					</div>
+  				</div>
+  				<div class="recommended">
+  					<div class="recommended-grids">
+  						<div class="recommended-info">
+  							<h3>电视剧</h3>
+  						</div>
+  						<div class="col-md-3 resent-grid recommended-grid">
+  							<div class="resent-grid-img recommended-grid-img">
+  								<a href="single.html"><img style="height: 350px !important;" src="https://0img.hitv.com/preview/internettv/sp_images/ott/2017/dianying/120347/20170111155226599-new.jpg" alt="" /></a>
+  							</div>
+  							<div class="resent-grid-info recommended-grid-info video-info-grid">
+  								<h5><a href="single.html" class="title">Varius sit sed viverra nullam viverra nullam interdum metus</a></h5>
+  								<ul>
+  									<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+  									<li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+  								</ul>
+  							</div>
+  						</div>
+              <div class="col-md-3 resent-grid recommended-grid">
+                <div class="resent-grid-img recommended-grid-img">
+                  <a href="single.html"><img style="height: 350px !important;" src="http://pic5.qiyipic.com/image/20180429/9a/8a/v_115692341_m_601_m1_180_236.jpg" alt="" /></a>
+
+                </div>
+                <div class="resent-grid-info recommended-grid-info video-info-grid">
+                  <h5><a href="single.html" class="title">Nullam interdum metus viverra nullam varius sit sed viverra</a></h5>
+                  <ul>
+                    <li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+                    <li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+                  </ul>
+                </div>
+              </div>
+  						<div class="col-md-3 resent-grid recommended-grid">
+  							<div class="resent-grid-img recommended-grid-img">
+  								<a href="single.html"><img style="height: 350px !important;" src="https://2img.hitv.com/preview/internettv/sp_images/ott/2017/dianying/120030/20171218220149847-new.jpg" alt="" /></a>
+
+  							</div>
+  							<div class="resent-grid-info recommended-grid-info video-info-grid">
+  								<h5><a href="single.html" class="title">Nullam interdum viverra nullam metus varius sit sed viverra</a></h5>
+  								<ul>
+  									<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+  									<li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+  								</ul>
+  							</div>
+  						</div>
+  						<div class="col-md-3 resent-grid recommended-grid">
+  							<div class="resent-grid-img recommended-grid-img">
+  								<a href="single.html"><img style="height: 350px !important;" src="https://0img.hitv.com/preview/internettv/sp_images/ott/2016/dianying/120024/20161128193743190-new.jpg" alt="" /></a>
+
+  							</div>
+  							<div class="resent-grid-info recommended-grid-info video-info-grid">
+  								<h5><a href="single.html" class="title">Varius sit sed viverra nullam viverra nullam interdum metus</a></h5>
+  								<ul>
+  									<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+  									<li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+  								</ul>
+  							</div>
+  						</div>
+  						<div class="col-md-3 resent-grid recommended-grid">
+  							<div class="resent-grid-img recommended-grid-img">
+  								<a href="single.html"><img style="height: 350px !important;" src="https://2img.hitv.com/preview/internettv/sp_images/ott/2016/dianying/120015/20160701111532150-new.jpg" alt="" /></a>
+
+  							</div>
+  							<div class="resent-grid-info recommended-grid-info video-info-grid">
+  								<h5><a href="single.html" class="title">Nullam interdum metus viverra nullam varius sit sed viverra</a></h5>
+  								<ul>
+  									<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+  									<li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+  								</ul>
+  							</div>
+  						</div>
+  						<div class="col-md-3 resent-grid recommended-grid">
+  							<div class="resent-grid-img recommended-grid-img">
+  								<a href="single.html"><img style="height: 350px !important;" src="https://1img.hitv.com/preview/internettv/sp_images/ott/2016/dianying/8083/20160702223029955-new.jpg" alt=""></a>
+
+  							</div>
+  							<div class="resent-grid-info recommended-grid-info video-info-grid">
+  								<h5><a href="single.html" class="title">Varius sit sed viverra nullam viverra nullam interdum metus</a></h5>
+  								<ul>
+  									<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+  									<li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+  								</ul>
+  							</div>
+  						</div>
+  						<div class="clearfix"> </div>
+  				</div>
+        </div>
+          <div class="recommended">
+            <div class="recommended-grids">
+              <div class="recommended-info">
+                <h3>纪录片</h3>
+              </div>
+              <div class="col-md-3 resent-grid recommended-grid">
+                <div class="resent-grid-img recommended-grid-img">
+                  <a href="single.html"><img style="height: 350px !important;" src="https://0img.hitv.com/preview/internettv/sp_images/ott/2017/dianying/120347/20170111155226599-new.jpg" alt="" /></a>
+
+                </div>
+                <div class="resent-grid-info recommended-grid-info video-info-grid">
+                  <h5><a href="single.html" class="title">Varius sit sed viverra nullam viverra nullam interdum metus</a></h5>
+                  <ul>
+                    <li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+                    <li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-3 resent-grid recommended-grid">
+                <div class="resent-grid-img recommended-grid-img">
+                  <a href="single.html"><img style="height: 350px !important;" src="http://pic5.qiyipic.com/image/20180429/9a/8a/v_115692341_m_601_m1_180_236.jpg" alt="" /></a>
+                </div>
+                <div class="resent-grid-info recommended-grid-info video-info-grid">
+                  <h5><a href="single.html" class="title">Nullam interdum metus viverra nullam varius sit sed viverra</a></h5>
+                  <ul>
+                    <li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+                    <li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-3 resent-grid recommended-grid">
+                <div class="resent-grid-img recommended-grid-img">
+                  <a href="single.html"><img style="height: 350px !important;" src="https://2img.hitv.com/preview/internettv/sp_images/ott/2017/dianying/120030/20171218220149847-new.jpg" alt="" /></a>
+
+                </div>
+                <div class="resent-grid-info recommended-grid-info video-info-grid">
+                  <h5><a href="single.html" class="title">Nullam interdum viverra nullam metus varius sit sed viverra</a></h5>
+                  <ul>
+                    <li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+                    <li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-3 resent-grid recommended-grid">
+                <div class="resent-grid-img recommended-grid-img">
+                  <a href="single.html"><img style="height: 350px !important;" src="https://0img.hitv.com/preview/internettv/sp_images/ott/2016/dianying/120024/20161128193743190-new.jpg" alt="" /></a>
+
+                </div>
+                <div class="resent-grid-info recommended-grid-info video-info-grid">
+                  <h5><a href="single.html" class="title">Varius sit sed viverra nullam viverra nullam interdum metus</a></h5>
+                  <ul>
+                    <li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+                    <li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-3 resent-grid recommended-grid">
+                <div class="resent-grid-img recommended-grid-img">
+                  <a href="single.html"><img style="height: 350px !important;" src="https://2img.hitv.com/preview/internettv/sp_images/ott/2016/dianying/120015/20160701111532150-new.jpg" alt="" /></a>
+
+                </div>
+                <div class="resent-grid-info recommended-grid-info video-info-grid">
+                  <h5><a href="single.html" class="title">Nullam interdum metus viverra nullam varius sit sed viverra</a></h5>
+                  <ul>
+                    <li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+                    <li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-3 resent-grid recommended-grid">
+                <div class="resent-grid-img recommended-grid-img">
+                  <a href="single.html"><img style="height: 350px !important;" src="https://1img.hitv.com/preview/internettv/sp_images/ott/2016/dianying/8083/20160702223029955-new.jpg" alt=""></a>
+
+                </div>
+                <div class="resent-grid-info recommended-grid-info video-info-grid">
+                  <h5><a href="single.html" class="title">Varius sit sed viverra nullam viverra nullam interdum metus</a></h5>
+                  <ul>
+                    <li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+                    <li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="clearfix"> </div>
+            </div>
+          </div>
+          <div class="recommended">
+            <div class="recommended-grids">
+              <div class="recommended-info">
+                <h3>音乐Mv</h3>
+              </div>
+              <div class="col-md-3 resent-grid recommended-grid">
+                <div class="resent-grid-img recommended-grid-img">
+                  <a href="single.html"><img style="height: 350px !important;" src="https://0img.hitv.com/preview/internettv/sp_images/ott/2017/dianying/120347/20170111155226599-new.jpg" alt="" /></a>
+
+                </div>
+                <div class="resent-grid-info recommended-grid-info video-info-grid">
+                  <h5><a href="single.html" class="title">Varius sit sed viverra nullam viverra nullam interdum metus</a></h5>
+                  <ul>
+                    <li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+                    <li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-3 resent-grid recommended-grid">
+                <div class="resent-grid-img recommended-grid-img">
+                  <a href="single.html"><img style="height: 350px !important;" src="https://2img.hitv.com/preview/internettv/sp_images/ott/2017/dianying/120030/20171218220149847-new.jpg" alt="" /></a>
+
+                </div>
+                <div class="resent-grid-info recommended-grid-info video-info-grid">
+                  <h5><a href="single.html" class="title">Nullam interdum viverra nullam metus varius sit sed viverra</a></h5>
+                  <ul>
+                    <li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+                    <li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-3 resent-grid recommended-grid">
+                <div class="resent-grid-img recommended-grid-img">
+                  <a href="single.html"><img style="height: 350px !important;" src="http://pic5.qiyipic.com/image/20180429/9a/8a/v_115692341_m_601_m1_180_236.jpg" alt="" /></a>
+
+                </div>
+                <div class="resent-grid-info recommended-grid-info video-info-grid">
+                  <h5><a href="single.html" class="title">Nullam interdum metus viverra nullam varius sit sed viverra</a></h5>
+                  <ul>
+                    <li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+                    <li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-3 resent-grid recommended-grid">
+                <div class="resent-grid-img recommended-grid-img">
+                  <a href="single.html"><img style="height: 350px !important;" src="https://0img.hitv.com/preview/internettv/sp_images/ott/2016/dianying/120024/20161128193743190-new.jpg" alt="" /></a>
+
+                </div>
+                <div class="resent-grid-info recommended-grid-info video-info-grid">
+                  <h5><a href="single.html" class="title">Varius sit sed viverra nullam viverra nullam interdum metus</a></h5>
+                  <ul>
+                    <li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+                    <li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-3 resent-grid recommended-grid">
+                <div class="resent-grid-img recommended-grid-img">
+                  <a href="single.html"><img style="height: 350px !important;" src="https://2img.hitv.com/preview/internettv/sp_images/ott/2016/dianying/120015/20160701111532150-new.jpg" alt="" /></a>
+
+                </div>
+                <div class="resent-grid-info recommended-grid-info video-info-grid">
+                  <h5><a href="single.html" class="title">Nullam interdum metus viverra nullam varius sit sed viverra</a></h5>
+                  <ul>
+                    <li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+                    <li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-3 resent-grid recommended-grid">
+                <div class="resent-grid-img recommended-grid-img">
+                  <a href="single.html"><img style="height: 350px !important;" src="https://1img.hitv.com/preview/internettv/sp_images/ott/2016/dianying/8083/20160702223029955-new.jpg" alt=""></a>
+                </div>
+                <div class="resent-grid-info recommended-grid-info video-info-grid">
+                  <h5><a href="single.html" class="title">erdum metus</a></h5>
+                  <ul>
+                    <li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+                    <li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="clearfix"> </div>
+            </div>
+          </div>
+  			</div>
+  		</div>
+  <!-- </div> -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  </body>
+</html>

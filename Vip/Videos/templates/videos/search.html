@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+  {% load staticfiles %}
+  <title>视频播放</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="{% static 'css/bootstrap.min.css' %}" rel='stylesheet' type='text/css' media="all" />
+  <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
+  <link href="{% static 'css/navstyle.css' %}" rel='stylesheet' type='text/css' media="all" />
+  <script src="{% static 'js/jquery-1.10.2.js' %}"></script>
+  <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+  {% if "computer" == device %}
+    <script src="{% static 'js/tagSelect.js' %}"></script>
+    <link href="{% static 'css/common.css' %}" rel='stylesheet' type='text/css' media="all" />
+    <link href="{% static 'css/computer-style.css' %}" rel='stylesheet' type='text/css' media="all" />
+  {% endif %}
+  {% if "mobile" == device %}
+    <link href="{% static 'css/mobile-style.css' %}" rel='stylesheet' type='text/css' media="all" />
+  {% endif %}
+  <script type="application/x-javascript">
+  addEventListener("load", function() {
+    setTimeout(hideURLbar, 0);
+  }, false);
+   function hideURLbar()
+   { window.scrollTo(0,1);
+   } </script>
+</head>
+  <body id='f-nav2'>
+    {% if "computer" == device %}
+     <div class="box" >
+      <ul class="f-nav"  >
+	        <li class="fontNav" onclick="tiao('main');">首页</li>
+	        <li onclick="tiao('movie');">电影</li>
+	        <li onclick="tiao('anime');">动漫</li>
+	        <li onclick="tiao('tv');">电视剧</li>
+	        <li onclick="tiao('documentary');">纪录片</li>
+	       <div class='sideline'></div>
+  	</ul>
+  </div>
+  <div class="top-search">
+    <form class="navbar-form navbar-right" action="search">
+      <!-- {% csrf_token %} -->
+      <input type="text" class="form-control" id="form-control" name="form-control" placeholder="Search...">
+      <input type="submit" value=" ">
+    </form>
+  </div>
+      <script type="text/javascript" src="{% static 'js/jquery-nav.js' %}"></script>
+      <script type="text/javascript">
+      	$('#f-nav2').tooltip({
+      		default: 0,
+      		type: 'fontUp',
+      		width: '150',
+      	});
+        function tiao(url){
+          window.location.href=url;
+        }
+      </script>
+      {% endif %}
+    {% if "mobile" == device %}
+        <div class="col-sm-3 col-md-2 sidebar"  style="position: fixed;top:0;z-index:9999;">
+			<div class="top-navigation">
+				<div class="t-menu">MENU</div>
+				<div class="t-img">
+					<img src="{% static 'images/lines.png' %}" alt="" />
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+				<div class="drop-navigation drop-navigation">
+				  <ul class="nav nav-sidebar">
+					<li class="active"><a href="main" class="home-icon">首页</a></li>
+					<li><a href="movie" class="user-icon">电影</a></li>
+					<li><a href="anime" class="sub-icon">动漫</a></li>
+					<li><a href="tv" class="menu1">电视剧</a></li>
+					<li><a href="main" class="menu">纪录片</a></li>
+				  </ul>
+						<script>
+							$( ".top-navigation" ).click(function() {
+							$( ".drop-navigation" ).slideToggle( 300, function() {
+							});
+							});
+						</script>
+				</div>
+        </div>
+        {% endif %}
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          {% if "mobile" == device %}
+          <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container-fluid">
+            <div id="navbar" class="navbar-collapse collapse">
+    			<div class="top-search">
+    				<form class="navbar-form navbar-right" action="search">
+              <!-- {% csrf_token %} -->
+    					<input type="text" class="form-control" id="form-control" name="form-control" placeholder="Search...">
+    					<input type="submit" value=" ">
+    				</form>
+    			</div>
+            </div>
+          </div>
+         </nav>
+         {% endif %}
+<style>
+    .recommended-grid-info a:hover {
+    border-color: #ff920b;
+    color: #ff920b;
+    }
+    .recommended-grid-info a:link,.recommended-grid-info a:visited{
+     text-decoration:none !important;
+    }
+    {% if "mobile" == device %}
+    .recommended-grid-img img{
+      height: 270px !important;
+    }
+    {% else %}
+    .recommended-grid-img img{
+      height: 370px !important;
+    }
+    {% endif %}
+</style>
+
+  					<div class="recommended-grids" style="margin: 0em !important;">
+  						<div  id="top" class="callbacks_container">
+  							<ul class="rslides" id="slider0">
+  								<li>
+  									<div class="animated-grids" id="contenttext">
+                      {% for video in videolist %}
+  										<div class="col-md-3 resent-grid recommended-grid slider-first" style="padding-top: 20px !important;">
+  											<div class="resent-grid-img recommended-grid-img">
+  												<a href="playing{{ video.id }}type4" target="_blank">
+                            <img src="//{{ video.videosumimageurl }}" alt="" />
+                          </a>
+  											</div>
+  											<div class="resent-grid-info recommended-grid-info">
+  												<h5 style="text-align: center !important;"><a href="playing{{ video.id }}type4"  target="_blank" class="title" style="color: #21DEEF !important;">{{ video.videosumname }}</a></h5>
+  											</div>
+  										</div>
+                      {% endfor %}
+  									</div>
+  								</li>
+  							</ul>
+  						</div>
+  					</div>
+  			</div>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  </body>
+</html>

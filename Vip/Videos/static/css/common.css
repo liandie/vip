@@ -1,0 +1,13 @@
+.filter a { color: #444; text-decoration: none; }
+.container { width: 100%; margin: 0 auto; }
+.clearfix:after { content: " "; display: block; clear: both; }
+.filter { padding-top: 0px; padding-bottom: 0px; }
+.sx_child {font-size: 13px;}
+.filter .boxbox { padding: 36px; font-size: 14px;border: 1px solid #dcdcdc; background-color: #fff}
+.filter .title-h { font-size: 16px; border-bottom: 1px solid #dcdcdc; padding-bottom: 10px }
+.filter dl { position: relative; margin-bottom: 10px }
+.filter dl:after { content: ""; display: block; clear: both }
+.filter dl dt { position: absolute; top: 2px; left: 0; font-weight: 700 }
+.filter dl dd { padding-left: 77px;padding-top: 2px; }
+.filter dl dd a { margin-right: 20px; margin-bottom: 10px; display: inline-block }
+.filter dl dd a.on { font-weight: 700; color: #477fd2 }

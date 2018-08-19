@@ -1,0 +1,423 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+  {% load staticfiles %}
+  <title>视频播放</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="{% static 'css/bootstrap.min.css' %}" rel='stylesheet' type='text/css' media="all" />
+  <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
+  <link href="{% static 'css/navstyle.css' %}" rel='stylesheet' type='text/css' media="all" />
+  <script src="{% static 'js/jquery-1.10.2.js' %}"></script>
+  <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+  {% if "computer" == device %}
+    <script src="{% static 'js/tagSelect.js' %}"></script>
+    <link href="{% static 'css/common.css' %}" rel='stylesheet' type='text/css' media="all" />
+    <link href="{% static 'css/computer-style.css' %}" rel='stylesheet' type='text/css' media="all" />
+  {% endif %}
+  {% if "mobile" == device %}
+    <link href="{% static 'css/mobile-style.css' %}" rel='stylesheet' type='text/css' media="all" />
+  {% endif %}
+  <script type="application/x-javascript">
+  addEventListener("load", function() {
+    setTimeout(hideURLbar, 0);
+  }, false);
+   function hideURLbar()
+   { window.scrollTo(0,1);
+   } </script>
+</head>
+  <body id='f-nav2'>
+    {% if "computer" == device %}
+     <div class="box" >
+      <ul class="f-nav"  >
+	        <li onclick="tiao('main');">首页</li>
+	        <li onclick="tiao('movie');">电影</li>
+	        <li onclick="tiao('anime');">动漫</li>
+	        <li class="fontNav" onclick="tiao('tv');">电视剧</li>
+	        <li onclick="tiao('documentary');">纪录片</li>
+	       <div class='sideline'></div>
+  	</ul>
+  </div>
+  <div class="top-search">
+    <form class="navbar-form navbar-right" action="search">
+      <!-- {% csrf_token %} -->
+      <input type="text" class="form-control" id="form-control" name="form-control" placeholder="Search...">
+      <input type="submit" value=" ">
+    </form>
+  </div>
+      <script type="text/javascript" src="{% static 'js/jquery-nav.js' %}"></script>
+      <script type="text/javascript">
+      	$('#f-nav2').tooltip({
+      		default: 0,
+      		type: 'fontUp',
+      		width: '150',
+      	});
+        function tiao(url){
+          window.location.href=url;
+        }
+      </script>
+      {% endif %}
+    {% if "mobile" == device %}
+        <div class="col-sm-3 col-md-2 sidebar"  style="position: fixed;top:0;z-index:9999;">
+			<div class="top-navigation">
+				<div class="t-menu">MENU</div>
+				<div class="t-img">
+					<img src="{% static 'images/lines.png' %}" alt="" />
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+				<div class="drop-navigation drop-navigation">
+				  <ul class="nav nav-sidebar">
+					<li><a href="main" class="home-icon">首页</a></li>
+					<li><a href="movie" class="user-icon">电影</a></li>
+					<li><a href="anime" class="sub-icon">动漫</a></li>
+					<li  class="active"><a href="tv" class="menu1">电视剧</a></li>
+					<li><a href="main" class="menu">纪录片</a></li>
+				  </ul>
+						<script>
+							$( ".top-navigation" ).click(function() {
+							$( ".drop-navigation" ).slideToggle( 300, function() {
+							});
+							});
+						</script>
+				</div>
+        </div>
+        {% endif %}
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          {% if "mobile" == device %}
+          <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container-fluid">
+            <div id="navbar" class="navbar-collapse collapse">
+    			<div class="top-search">
+    				<form class="navbar-form navbar-right" action="search">
+              <!-- {% csrf_token %} -->
+    					<input type="text" class="form-control" id="form-control" name="form-control" placeholder="Search...">
+    					<input type="submit" value=" ">
+    				</form>
+    			</div>
+            </div>
+          </div>
+         </nav>
+         {% endif %}
+{% if "computer" == device %}
+      <script>
+          $(function(){
+              new SelectTag({
+                  child : ".sx_child", //所有筛选范围内的子类
+                  over : 'on', //选中状态样式名称
+                  all : ".all"
+              });
+          })
+      </script>
+         <div class="filter">
+             <div class="container" style="padding-left: 0 !important;">
+                 <div class="boxbox">
+                 <div class="title-h">按条件筛选</div>
+                 <dl>
+                     <dt>类型：</dt>
+                     <dd>
+
+                         <a href="#" rel="全部" name="mode" class="all on">全部</a>
+                         <a href="#" rel="偶像" name="mode" class="sx_child">偶像</a>
+                         <a href="#" rel="爱情" name="mode" class="sx_child">爱情</a>
+                         <a href="#" rel="古装" name="mode" class="sx_child">古装</a>
+                         <a href="#" rel="家庭" name="mode" class="sx_child">家庭</a>
+                         <a href="#" rel="都市" name="mode" class="sx_child">都市</a>
+                         <a href="#" rel="喜剧" name="mode" class="sx_child">喜剧</a>
+                         <a href="#" rel="悬疑" name="mode" class="sx_child">悬疑</a>
+                         <a href="#" rel="谍战" name="mode" class="sx_child">谍战</a>
+                         <a href="#" rel="历史" name="mode" class="sx_child">历史</a>
+                         <a href="#" rel="战争" name="mode" class="sx_child">战争</a>
+                         <a href="#" rel="穿越" name="mode" class="sx_child">穿越</a>
+                         <a href="#" rel="警匪" name="mode" class="sx_child">警匪</a>
+                         <a href="#" rel="权谋" name="mode" class="sx_child">权谋</a>
+                         <a href="#" rel="宫斗" name="mode" class="sx_child">宫斗</a>
+                         <a href="#" rel="史诗" name="mode" class="sx_child">史诗</a>
+                         <a href="#" rel="生活" name="mode" class="sx_child">生活</a>
+                         <a href="#" rel="历险" name="mode" class="sx_child">历险</a>
+                         <a href="#" rel="科幻" name="mode" class="sx_child">科幻</a>
+                         <a href="#" rel="军旅" name="mode" class="sx_child">军旅</a>
+                         <a href="#" rel="奇幻" name="mode" class="sx_child">奇幻</a>
+                         <a href="#" rel="抗战" name="mode" class="sx_child">抗战</a>
+                         <a href="#" rel="武侠" name="mode" class="sx_child">武侠</a>
+                         <a href="#" rel="江湖" name="mode" class="sx_child">江湖</a>
+                         <a href="#" rel="青春" name="mode" class="sx_child">青春</a>
+                         <a href="#" rel="校园" name="mode" class="sx_child">校园</a>
+                         <a href="#" rel="时代" name="mode" class="sx_child">时代</a>
+                         <a href="#" rel="传奇" name="mode" class="sx_child">传奇</a>
+                         <a href="#" rel="体育" name="mode" class="sx_child">体育</a>
+                         <a href="#" rel="电竞" name="mode" class="sx_child">电竞</a>
+                         <a href="#" rel="宫廷" name="mode" class="sx_child">宫廷</a>
+                         <a href="#" rel="神话" name="mode" class="sx_child">神话</a>
+                         <a href="#" rel="农村" name="mode" class="sx_child">农村</a>
+                         <a href="#" rel="商战" name="mode" class="sx_child">商战</a>
+                         <a href="#" rel="网剧" name="mode" class="sx_child">网剧</a>
+                         <a href="#" rel="言情" name="mode" class="sx_child">言情</a>
+                         <a href="#" rel="神话" name="mode" class="sx_child">神话</a>
+                         <a href="#" rel="时装" name="mode" class="sx_child">时装</a>
+                         <a href="#" rel="真人动漫" name="mode" class="sx_child">真人动漫</a>
+                         <a href="#" rel="芒果出品" name="mode" class="sx_child">芒果出品</a>
+                         <a href="#" rel="优酷出品" name="mode" class="sx_child">优酷出品</a>
+                         <a href="#" rel="当代主旋律" name="mode" class="sx_child">当代主旋律</a>
+                        <a href="#" rel="其他" name="mode" class="sx_child">其他</a>
+
+                     </dd>
+                 </dl>
+                 <dl>
+                     <dt>地区：</dt>
+                     <dd>
+                         <a href="#" rel="" name="stage" class="all on">全部</a>
+                         <a href="#" rel="内地" name="stage" class="sx_child">内地</a>
+                         <a href="#" rel="香港" name="stage" class="sx_child">中国香港</a>
+                         <a href="#" rel="台湾" name="stage" class="sx_child">中国台湾</a>
+                         <a href="#" rel="美国" name="stage" class="sx_child">美国</a>
+                         <a href="#" rel="欧洲" name="stage" class="sx_child">欧洲</a>
+                         <a href="#" rel="韩国" name="stage" class="sx_child">韩国</a>
+                         <a href="#" rel="日本" name="stage" class="sx_child">日本</a>
+                         <a href="#" rel="泰国" name="stage" class="sx_child">泰国</a>
+                         <a href="#" rel="印度" name="stage" class="sx_child">印度</a>
+                         <a href="#" rel="加拿大" name="stage" class="sx_child">加拿大</a>
+                         <a href="#" rel="英国" name="stage" class="sx_child">英国</a>
+                         <a href="#" rel="法国" name="stage" class="sx_child">法国</a>
+                         <a href="#" rel="德国" name="stage" class="sx_child">德国</a>
+                         <a href="#" rel="西班牙" name="stage" class="sx_child">西班牙</a>
+                         <a href="#" rel="意大利" name="stage" class="sx_child">意大利</a>
+                         <a href="#" rel="俄罗斯" name="stage" class="sx_child">俄罗斯</a>
+                         <a href="#" rel="新加坡" name="stage" class="sx_child">新加坡</a>
+                         <a href="#" rel="澳大利亚" name="stage" class="sx_child">澳大利亚</a>
+                         <a href="#" rel="其他" name="stage" class="sx_child">其他</a>
+                     </dd>
+                 </dl>
+                 <dl>
+                     <dt>年代：</dt>
+                     <dd>
+                         <a href="#" rel="" name="sector" class="all on">全部</a>
+                         <a href="#" rel="2018" name="sector" class="sx_child">2018</a>
+                         <a href="#" rel="2017" name="sector" class="sx_child">2017</a>
+                         <a href="#" rel="2016" name="sector" class="sx_child">2016</a>
+                         <a href="#" rel="2015" name="sector" class="sx_child">2015</a>
+                         <a href="#" rel="2014" name="sector" class="sx_child">2014</a>
+                         <a href="#" rel="2013" name="sector" class="sx_child">2013</a>
+                         <a href="#" rel="2012-2008" name="sector" class="sx_child">2012-2008</a>
+                         <a href="#" rel="2008-2000" name="sector" class="sx_child">2008-2000</a>
+                         <a href="#" rel="20世纪90年代" name="sector" class="sx_child">20世纪90年代</a>
+                         <a href="#" rel="20世纪80年代" name="sector" class="sx_child">20世纪80年代</a>
+                         <a href="#" rel="80年代前" name="sector" class="sx_child">80年代前</a>
+                     </dd>
+                 </dl>
+                 <dl>
+                     <dt>语言：</dt>
+                     <dd>
+                         <a href="#" rel="" name="board" class="all on">全部</a>
+                         <a href="#" rel="普通话" name="board" class="sx_child">普通话</a>
+                         <a href="#" rel="华语" name="board" class="sx_child">华语</a>
+                         <a href="#" rel="粤语" name="board" class="sx_child">粤语</a>
+                         <a href="#" rel="英语" name="board" class="sx_child">英语</a>
+                         <a href="#" rel="韩语" name="board" class="sx_child">韩语</a>
+                         <a href="#" rel="日语" name="board" class="sx_child">日语</a>
+                         <a href="#" rel="法语" name="board" class="sx_child">法语</a>
+                         <a href="#" rel="德语" name="board" class="sx_child">德语</a>
+                         <a href="#" rel="俄语" name="board" class="sx_child">俄语</a>
+                         <a href="#" rel="泰语" name="board" class="sx_child">泰语</a>
+                         <a href="#" rel="台语" name="board" class="sx_child">台语</a>
+                         <a href="#" rel="印度语" name="board" class="sx_child">印度语</a>
+                         <a href="#" rel="比利时语" name="board" class="sx_child">比利时语</a>
+                         <a href="#" rel="其他" name="board" class="sx_child">其他</a>
+
+                     </dd>
+                 </dl>
+                 </div>
+             </div>
+         </div>
+{% endif %}
+<style>
+    .recommended-grid-info a:hover {
+    border-color: #ff920b;
+    color: #ff920b;
+    }
+    .recommended-grid-info a:link,.recommended-grid-info a:visited{
+     text-decoration:none !important;
+    }
+    {% if "mobile" == device %}
+    .recommended-grid-img img{
+      height: 270px !important;
+    }
+    {% else %}
+    .recommended-grid-img img{
+      height: 370px !important;
+    }
+    {% endif %}
+</style>
+
+  					<div class="recommended-grids" style="margin: 0em !important;">
+  						<div  id="top" class="callbacks_container">
+  							<ul class="rslides" id="slider0">
+  								<li>
+  									<div class="animated-grids" id="contenttext">
+                      {% for t in tv|slice:":30" %}
+  										<div class="col-md-3 resent-grid recommended-grid slider-first" style="padding-top: 20px !important;">
+  											<div class="resent-grid-img recommended-grid-img">
+  												<a href="playing{{ t.id }}type2" target="_blank">
+                            <img src="//{{ t.tvimageurl }}" alt="" />
+                          </a>
+  											</div>
+  											<div class="resent-grid-info recommended-grid-info">
+  												<h5 style="text-align: center !important;"><a href="playing{{ t.id }}type2"  target="_blank" class="title" style="color: #21DEEF !important;">{{ t.tvname }}</a></h5>
+  											</div>
+  										</div>
+                      {% endfor %}
+  									</div>
+  								</li>
+  							</ul>
+                <style>
+                .mod_pages {
+                  margin: 49px auto;
+                  text-align: center;
+                  font-size: 25 !important;
+              }
+              .mod_pages .disabled {
+              opacity: .5;
+              filter: alpha(opacity=50);
+              cursor: default;
+            }
+            .mod_pages .page_prev {
+                margin-right: 15px;
+            }
+                .mod_pages a {
+                    display: inline-block;
+                    min-width: 10px;
+                    height: 30px;
+                    margin: 0 5px;
+                    padding: 0 10px;
+                    line-height: 30px;
+                    border: 1px solid #D8D8D8;
+                    text-align: center;
+                    border-radius: 2px;
+                    font-size: 14px;
+                    color: #5A5A5A;
+                }
+                .mod_pages .page_next {
+                    margin-left: 15px;
+                }
+                .mod_pages .current, .mod_pages .current:hover {
+                    background-color: #ff920b;
+                    border-color: #ff920b;
+                    color: #fff;
+                }
+                .mod_pages a:hover {
+    border-color: #ff920b;
+    color: #ff920b;
+}
+                .mod_pages a:link,.mod_pages a:visited{
+                 text-decoration:none;
+                }
+                </style>
+
+                <div class="mod_pages" r-notemplate="true">
+                  {% if page != 1 %}
+                    <a href="javascript:;" onclick="ajaxLogin(1);" class="page_prev" id="prevpage">上一页</a>
+                  {% else %}
+                  <a href="javascript:;" onclick="ajaxLogin(1);" class="page_prev disabled" id="prevpage">上一页</a>
+                  {% endif %}
+                		<span class="_items" id="_items">
+                      <input type='hidden' name='page' id="page" value='{{page}}' />
+                      <input type='hidden' name='countpage' id="countpage" value='{{countpage}}' />
+                			<a href="javascript:;" id="apage" class="disabled">当前{{page}}页</a>
+                      <a href="javascript:;" class="disabled">总共{{countpage}}页</a>
+                		</span>
+                    {% if page != countpage %}
+                			<a href="javascript:;" onclick="ajaxLogin(0);" class="page_next" id="nextpage">下一页</a>
+                    {% else %}
+                      <a href="javascript:;" onclick="ajaxLogin(0);" class="page_next disabled"  id="nextpage">下一页</a>
+                    {% endif %}
+                	</div>
+                  <script>
+                function ajaxLogin(updn){
+                  var countpage = parseInt($("#countpage").val());
+                  var npage = parseInt($("#page").val());
+                  if((npage>1&&updn==1)||(updn==0&&npage<countpage)){
+                  $.ajax({
+                     type:'POST',
+                     url:'/pageindex/',
+                     data:{
+                        // csrfmiddlewaretoken:$("input:first").val(),
+                        csrfmiddlewaretoken:'{{ csrf_token }}',
+                        type:'{{ dic.tvtype }}',
+                        region:'{{ dic.tvregion }}',
+                        decade:'{{ dic.tvdecade }}',
+                        language:'{{ dic.tvlanguage }}',
+                        pageupdn:updn,
+                        page:npage,
+                        countpage:{{countpage}},
+                        urltype:'tv'
+                    },
+                     dataType:'json',
+                     success:function(ret)
+                    {
+                      var element=document.getElementById("contenttext");
+                      var pageelement = document.getElementById('page');
+                      var apageelement = document.getElementById('apage');
+                      var sapageelement = document.getElementById('prevpage');
+                      var xapageelement = document.getElementById('nextpage');
+                      var aa,bb,cc,dd,ee,ff,gg,hh,ii,jj,kk,ll,mm,nn;
+                      var cont = ''
+                      for(var i=0;i<(ret.info).length;i++){
+                        aa = '<div class="col-md-3 resent-grid recommended-grid slider-first" style="padding-top: 20px !important;">'
+            						bb = '<div class="resent-grid-img recommended-grid-img">'
+            						cc = '<a href="playing'+ret.info[i].id+'type2"  target="_blank">'
+                        dd = '<img src="//'+ret.info[i].tvimageurl+'" alt="" />'
+                        ee = '</a>'
+            						ff = '</div>'
+            						gg = '<div class="resent-grid-info recommended-grid-info">'
+            						hh = '<h5 style="text-align: center !important;"><a href="playing'+ret.info[i].id+'type2"  target="_blank" class="title" style="color: #21DEEF !important;">'+ret.info[i].tvname+'</a></h5>'
+            						ii = '</div>'
+            						jj = '</div>'
+                        cont += aa+bb+cc+dd+ee+ff+gg+hh+ii+jj;
+                      }
+                        element.innerHTML=cont;
+                        pageelement.value=ret.pagenum;
+                        apageelement.innerHTML="当前"+ret.pagenum+"页";
+                        if (ret.pagenum < countpage){
+                          var value = xapageelement.className;
+                          if(value.indexOf("disabled") >= 0){
+                            $("#nextpage").removeClass("disabled");
+                          }
+                        }else{
+                          var value = xapageelement.className;
+                          if(value.indexOf("disabled") < 0){
+                            xapageelement.className += ' disabled';
+                          }
+                        }
+                        if (ret.pagenum > 1){
+                          var value = sapageelement.className;
+                          // alert(value);
+                          if(value.indexOf("disabled") >= 0){
+                            $("#prevpage").removeClass("disabled");
+                          }
+                        }else{
+                          var value = sapageelement.className;
+                          if(value.indexOf("disabled") < 0){
+                            sapageelement.className += ' disabled';
+                          }
+                        }
+                    },
+                     error:function(data)
+                    {
+                      alert(data);
+                    }
+                    });
+                    }
+                  }
+                </script>
+                <ul>
+                  <li style="height: 90px;list-style:none;">
+                  <h1>总共{{count}}条数据</h1>
+                  </li>
+                </ul>
+  						</div>
+  					</div>
+  			</div>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  </body>
+</html>
