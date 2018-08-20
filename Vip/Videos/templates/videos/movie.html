@@ -35,7 +35,7 @@
 	        <li  class="fontNav" onclick="tiao('movie');">电影</li>
 	        <li onclick="tiao('anime');">动漫</li>
 	        <li onclick="tiao('tv');">电视剧</li>
-	        <li onclick="tiao('documentary');">纪录片</li>
+	        <!-- <li onclick="tiao('documentary');">纪录片</li> -->
 	       <div class='sideline'></div>
   	</ul>
   </div>
@@ -73,7 +73,7 @@
 					<li class="active"><a href="movie" class="user-icon">电影</a></li>
 					<li><a href="anime" class="sub-icon">动漫</a></li>
 					<li><a href="tv" class="menu1">电视剧</a></li>
-					<li><a href="main" class="menu">纪录片</a></li>
+					<!-- <li><a href="main" class="menu">纪录片</a></li> -->
 				  </ul>
 						<script>
 							$( ".top-navigation" ).click(function() {
@@ -103,11 +103,13 @@
 {% if "computer" == device %}
       <script>
           $(function(){
+
               new SelectTag({
                   child : ".sx_child", //所有筛选范围内的子类
                   over : 'on', //选中状态样式名称
                   all : ".all"
               });
+
           })
       </script>
          <div class="filter">
@@ -314,16 +316,22 @@
                 function ajaxLogin(updn){
                   var countpage = parseInt($("#countpage").val());
                   var npage = parseInt($("#page").val());
+
+                  var moviestype = '{{ dic.moviestype }}';
+                  var moviesregion = '{{ dic.moviesregion }}';
+                  var moviesdecade = '{{ dic.moviesdecade }}';
+                  var movieslanguage = '{{ dic.movieslanguage }}';
+                  
                   if((npage>1&&updn==1)||(updn==0&&npage<countpage)){
                   $.ajax({
                      type:'POST',
                      url:'/pageindex/',
                      data:{
                         csrfmiddlewaretoken:'{{ csrf_token }}',
-                        type:'{{ dic.moviestype }}',
-                        region:'{{ dic.moviesregion }}',
-                        decade:'{{ dic.moviesdecade }}',
-                        language:'{{ dic.movieslanguage }}',
+                        type:moviestype,
+                        region:moviesregion,
+                        decade:moviesdecade,
+                        language:movieslanguage,
                         pageupdn:updn,
                         page:npage,
                         countpage:{{countpage}},
@@ -378,6 +386,43 @@
                             sapageelement.className += ' disabled';
                           }
                         }
+
+
+                    var url=window.location.href;
+                    var stateObject = {};
+                    var title = "视频播放";
+                    var newUrl = "";
+                    if(url.indexOf("?") != -1){
+                        url = url.split("?")[0];
+                        newUrl = url + "?page="+ret.pagenum;
+                        if (moviestype!=""){
+                          newUrl += "&mode="+moviestype;
+                        }
+                        if(moviesregion!=""){
+                          newUrl += "&stage="+moviesregion;
+                        }
+                        if(moviesdecade!=""){
+                          newUrl += "&sector="+moviesdecade;
+                        }
+                        if(movieslanguage != ""){
+                          newUrl += "&board="+movieslanguage
+                        }
+                    }else{
+                      newUrl =url + "?page="+ret.pagenum;
+                      if (moviestype!=""){
+                          newUrl += "&mode="+moviestype;
+                        }
+                        if(moviesregion!=""){
+                          newUrl += "&stage="+moviesregion;
+                        }
+                        if(moviesdecade!=""){
+                          newUrl += "&sector="+moviesdecade;
+                        }
+                        if(movieslanguage != ""){
+                          newUrl += "&board="+movieslanguage
+                        }
+                    }
+                    history.pushState(stateObject,title,newUrl);
                     },
                      error:function(data)
                     {

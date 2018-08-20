@@ -35,7 +35,7 @@
 	        <li onclick="tiao('movie');">电影</li>
 	        <li class="fontNav" onclick="tiao('anime');">动漫</li>
 	        <li onclick="tiao('tv');">电视剧</li>
-	        <li onclick="tiao('documentary');">纪录片</li>
+	        <!-- <li onclick="tiao('documentary');">纪录片</li> -->
 	       <div class='sideline'></div>
   	</ul>
   </div>
@@ -73,7 +73,7 @@
 					<li><a href="movie" class="user-icon">电影</a></li>
 					<li class="active"><a href="anime" class="sub-icon">动漫</a></li>
 					<li><a href="tv" class="menu1">电视剧</a></li>
-					<li><a href="main" class="menu">纪录片</a></li>
+					<!-- <li><a href="main" class="menu">纪录片</a></li> -->
 				  </ul>
 						<script>
 							$( ".top-navigation" ).click(function() {
@@ -346,16 +346,23 @@
                 function ajaxLogin(updn){
                   var countpage = parseInt($("#countpage").val());
                   var npage = parseInt($("#page").val());
+
+                  var animetype = '{{ dic.animetype }}';
+                  var animeregion = '{{ dic.animeregion }}';
+                  var animedecade = '{{ dic.animedecade }}';
+                  var animelanguage = '{{ dic.animelanguage }}';
+
+
                   if((npage>1&&updn==1)||(updn==0&&npage<countpage)){
                   $.ajax({
                      type:'POST',
                      url:'/pageindex/',
                      data:{
                         csrfmiddlewaretoken:'{{ csrf_token }}',
-                        type:'{{ dic.animetype }}',
-                        region:'{{ dic.animeregion }}',
-                        decade:'{{ dic.animedecade }}',
-                        language:'{{ dic.animelanguage }}',
+                        type:animetype,
+                        region:animeregion,
+                        decade:animedecade,
+                        language:animelanguage,
                         pageupdn:updn,
                         page:npage,
                         countpage:{{countpage}},
@@ -410,6 +417,49 @@
                             sapageelement.className += ' disabled';
                           }
                         }
+
+
+
+
+                var url=window.location.href;
+                    var stateObject = {};
+                    var title = "视频播放";
+                    var newUrl = "";
+                    if(url.indexOf("?") != -1){
+                        url = url.split("?")[0];
+                        newUrl = url + "?page="+ret.pagenum;
+                        if (animetype!=""){
+                          newUrl += "&mode="+animetype;
+                        }
+                        if(animeregion!=""){
+                          newUrl += "&stage="+animeregion;
+                        }
+                        if(animedecade!=""){
+                          newUrl += "&sector="+animedecade;
+                        }
+                        if(animelanguage != ""){
+                          newUrl += "&board="+animelanguage
+                        }
+                    }else{
+                      newUrl =url + "?page="+ret.pagenum;
+                      if (animetype!=""){
+                          newUrl += "&mode="+animetype;
+                        }
+                        if(animeregion!=""){
+                          newUrl += "&stage="+animeregion;
+                        }
+                        if(animedecade!=""){
+                          newUrl += "&sector="+animedecade;
+                        }
+                        if(animelanguage != ""){
+                          newUrl += "&board="+animelanguage
+                        }
+                    }
+                    history.pushState(stateObject,title,newUrl);
+
+
+
+
                     },
                      error:function(data)
                     {

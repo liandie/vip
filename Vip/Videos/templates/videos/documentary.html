@@ -336,16 +336,20 @@
                 function ajaxLogin(updn){
                   var countpage = parseInt($("#countpage").val());
                   var npage = parseInt($("#page").val());
+                  var documentarytype = '{{ dic.documentarytype }}';
+                  var documentaryregion = '{{ dic.documentaryregion }}';
+                  var documentarydecade = '{{ dic.documentarydecade }}';
+                  var documentarylanguage = '{{ dic.documentarylanguage }}';
                   if((npage>1&&updn==1)||(updn==0&&npage<countpage)){
                   $.ajax({
                      type:'POST',
                      url:'/pageindex/',
                      data:{
                         csrfmiddlewaretoken:'{{ csrf_token }}',
-                        type:'{{ dic.documentarytype }}',
-                        region:'{{ dic.documentaryregion }}',
-                        decade:'{{ dic.documentarydecade }}',
-                        language:'{{ dic.documentarylanguage }}',
+                        type:documentarytype,
+                        region:documentaryregion,
+                        decade:documentarydecade,
+                        language:documentarylanguage,
                         pageupdn:updn,
                         page:npage,
                         countpage:{{countpage}},
@@ -400,6 +404,45 @@
                             sapageelement.className += ' disabled';
                           }
                         }
+
+                    var url=window.location.href;
+                    var stateObject = {};
+                    var title = "视频播放";
+                    var newUrl = "";
+                    if(url.indexOf("?") != -1){
+                        url = url.split("?")[0];
+                        newUrl = url + "?page="+ret.pagenum;
+                        if (documentarytype!=""){
+                          newUrl += "&mode="+documentarytype;
+                        }
+                        if(documentaryregion!=""){
+                          newUrl += "&stage="+documentaryregion;
+                        }
+                        if(documentarydecade!=""){
+                          newUrl += "&sector="+documentarydecade;
+                        }
+                        if(documentarylanguage != ""){
+                          newUrl += "&board="+documentarylanguage
+                        }
+                    }else{
+                      newUrl =url + "?page="+ret.pagenum;
+                      if (documentarytype!=""){
+                          newUrl += "&mode="+documentarytype;
+                        }
+                        if(documentaryregion!=""){
+                          newUrl += "&stage="+documentaryregion;
+                        }
+                        if(documentarydecade!=""){
+                          newUrl += "&sector="+documentarydecade;
+                        }
+                        if(documentarylanguage != ""){
+                          newUrl += "&board="+documentarylanguage
+                        }
+                    }
+                    history.pushState(stateObject,title,newUrl);
+
+
+
                     },
                      error:function(data)
                     {

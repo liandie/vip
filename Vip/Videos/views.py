@@ -28,6 +28,11 @@ from .models import Movies,Anime,Tvseries,Videosum
 from django.utils.datastructures import MultiValueDictKeyError
 
 
+
+def page_error(request):
+    return render(request, '404.html')
+
+
 def checkMobile(userAgent):
     _long_matches = r'googlebot-mobile|android|avantgo|blackberry|blazer|elaine|hiptop|ip(hone|od)|kindle|midp|mmp|mobile|o2|opera mini|palm( os)?|pda|plucker|pocket|psp|smartphone|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce; (iemobile|ppc)|xiino|maemo|fennec'
     _long_matches = re.compile(_long_matches, re.IGNORECASE)
@@ -112,6 +117,7 @@ def movie(request):
     moviesregion=''
     moviesdecade=''
     movieslanguage=''
+    page = '1'
     texthtml = request.META.get('HTTP_USER_AGENT')
     if request.method == 'GET':
         try:
@@ -130,6 +136,11 @@ def movie(request):
             movieslanguage = request.GET['board']
         except MultiValueDictKeyError as e:
             print('mode Erro')
+        try:
+            page = int(request.GET['page'])
+        except MultiValueDictKeyError as e:
+            print('mode Erro')
+            page = int(page)
     elif request.method == 'POST':
         videosname = request.POST['form-control']
     # except MultiValueDictKeyError as e:
@@ -139,10 +150,10 @@ def movie(request):
     print('..............',count)
     if checkMobile(texthtml):
         print('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<手机')
-        return render(request,'videos/movie.html',{'device':'mobile','movies':movies,'dic':dic,'page':1,'count':count,'countpage':(count//30)+1})
+        return render(request,'videos/movie.html',{'device':'mobile','movies':movies[(page-1)*30:page*30],'dic':dic,'page':page,'count':count,'countpage':(count//30)+1})
     else:
         print('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<电脑')
-        return render(request,'videos/movie.html',{'device':'computer','movies':movies,'dic':dic,'page':1,'count':count,'countpage':(count//30)+1})
+        return render(request,'videos/movie.html',{'device':'computer','movies':movies[(page-1)*30:page*30],'dic':dic,'page':page,'count':count,'countpage':(count//30)+1})
 
 
 def pageindex(request):
@@ -178,6 +189,7 @@ def anime(request):
     animeregion=''
     animedecade=''
     animelanguage=''
+    page = '1'
     texthtml = request.META.get('HTTP_USER_AGENT')
     if request.method == 'GET':
         try:
@@ -196,6 +208,11 @@ def anime(request):
             animelanguage = request.GET['board']
         except MultiValueDictKeyError as e:
             print('mode Erro')
+        try:
+            page = int(request.GET['page'])
+        except MultiValueDictKeyError as e:
+            print('mode Erro')
+            page = int(page)
     elif request.method == 'POST':
         videosname = request.POST['form-control']
     # except MultiValueDictKeyError as e:
@@ -204,16 +221,17 @@ def anime(request):
     dic={'animetype':animetype,'animeregion':animeregion,'animedecade':animedecade,'animelanguage':animelanguage}
     if checkMobile(texthtml):
         print('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<手机')
-        return render(request,'videos/anime.html',{'device':'mobile','anime':anime,'dic':dic,'page':1,'count':count,'countpage':(count//30)+1})
+        return render(request,'videos/anime.html',{'device':'mobile','anime':anime[(page-1)*30:page*30],'dic':dic,'page':1,'count':count,'countpage':(count//30)+1})
     else:
         print('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<电脑')
-        return render(request,'videos/anime.html',{'device':'computer','anime':anime,'dic':dic,'page':1,'count':count,'countpage':(count//30)+1})
+        return render(request,'videos/anime.html',{'device':'computer','anime':anime[(page-1)*30:page*30],'dic':dic,'page':1,'count':count,'countpage':(count//30)+1})
 
 def tv(request):
     tvtype=''
     tvregion=''
     tvdecade=''
     tvlanguage=''
+    page = '1'
     texthtml = request.META.get('HTTP_USER_AGENT')
     if request.method == 'GET':
         try:
@@ -232,6 +250,11 @@ def tv(request):
             tvlanguage = request.GET['board']
         except MultiValueDictKeyError as e:
             print('mode Erro')
+        try:
+            page = int(request.GET['page'])
+        except MultiValueDictKeyError as e:
+            print('mode Erro')
+            page = int(page)
     elif request.method == 'POST':
         videosname = request.POST['form-control']
     # except MultiValueDictKeyError as e:
@@ -240,10 +263,10 @@ def tv(request):
     dic={'tvtype':tvtype,'tvregion':tvregion,'tvdecade':tvdecade,'tvlanguage':tvlanguage}
     if checkMobile(texthtml):
         print('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<手机')
-        return render(request,'videos/tv.html',{'device':'mobile','tv':tv,'dic':dic,'page':1,'count':count,'countpage':(count//30)+1})
+        return render(request,'videos/tv.html',{'device':'mobile','tv':tv[(page-1)*30:page*30],'dic':dic,'page':1,'count':count,'countpage':(count//30)+1})
     else:
         print('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<电脑')
-        return render(request,'videos/tv.html',{'device':'computer','tv':tv,'dic':dic,'page':1,'count':count,'countpage':(count//30)+1})
+        return render(request,'videos/tv.html',{'device':'computer','tv':tv[(page-1)*30:page*30],'dic':dic,'page':1,'count':count,'countpage':(count//30)+1})
 
 
 def documentary(request):
@@ -251,6 +274,7 @@ def documentary(request):
     documentaryregion=''
     documentarydecade=''
     documentarylanguage=''
+    page = '1'
     texthtml = request.META.get('HTTP_USER_AGENT')
     if request.method == 'GET':
         try:
@@ -269,6 +293,11 @@ def documentary(request):
             documentarylanguage = request.GET['board']
         except MultiValueDictKeyError as e:
             print('mode Erro')
+        try:
+            page = int(request.GET['page'])
+        except MultiValueDictKeyError as e:
+            print('mode Erro')
+            page = int(page)
     elif request.method == 'POST':
         videosname = request.POST['form-control']
     # except MultiValueDictKeyError as e:
@@ -278,10 +307,10 @@ def documentary(request):
     'documentarydecade':documentarydecade,'documentarylanguage':documentarylanguage}
     if checkMobile(texthtml):
         print('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<手机')
-        return render(request,'videos/documentary.html',{'device':'mobile','documentary':documentary,'dic':dic,'page':1,'count':count,'countpage':(count//30)+1})
+        return render(request,'videos/documentary.html',{'device':'mobile','documentary':documentary[(page-1)*30:page*30],'dic':dic,'page':1,'count':count,'countpage':(count//30)+1})
     else:
         print('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<电脑')
-        return render(request,'videos/documentary.html',{'device':'computer','documentary':documentary,'dic':dic,'page':1,'count':count,'countpage':(count//30)+1})
+        return render(request,'videos/documentary.html',{'device':'computer','documentary':documentary[(page-1)*30:page*30],'dic':dic,'page':1,'count':count,'countpage':(count//30)+1})
 
 
 def show(request):
@@ -351,6 +380,4 @@ def video(request):
 
 def ceshi(request):
     print('测试成功')
-    list = models.Movies.objects.all()
-    print(len(list))
-    return render(request, 'ceshi.html')
+    print(int(""))
